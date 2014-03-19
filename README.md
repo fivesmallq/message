@@ -1,6 +1,4 @@
-### message [![Build Status](https://travis-ci.org/fivesmallq/message.png)](https://travis-ci.org/fivesmallq/message)
-
-message
+message [![Build Status](https://travis-ci.org/fivesmallq/message.png)](https://travis-ci.org/fivesmallq/message)
 =========
 simple rpc to send message. impl by rmi.
 
