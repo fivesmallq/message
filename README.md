@@ -46,3 +46,5 @@ try {
 }
 }
 ````
+
+binaries:https://github.com/fivesmallq/message/releases/download/0.0.1/message-0.0.1-SNAPSHOT.jar
