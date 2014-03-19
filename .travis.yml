@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - openjdk6
+  - oraclejdk6
+# whitelist
+branches:
+  only:
+    - master
+notifications:
+  email: false
