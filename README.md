@@ -6,7 +6,7 @@ simple rpc to send message. impl by rmi.
 
 =========
 1.Server
-````
+````java
 MessageServer messageServer = new MessageServer("localhost", 1099,
 				"message");
 	MessageUtils.startServer(messageServer, new MessageHandler() {
@@ -19,7 +19,7 @@ MessageServer messageServer = new MessageServer("localhost", 1099,
 	});
 ````
 OR.
-````
+````java
 new MessageServer(propsFileName);
 new MessageServer(propsFile);
 new MessageServer(ip,host,serveName);
@@ -28,7 +28,7 @@ new MessageServer(ip,host,serveName);
 
 
 2.Client
-````
+````java
 try {
 	MessageService messageService = MessageUtils
 					.lookUp("localhost:1099/message");
