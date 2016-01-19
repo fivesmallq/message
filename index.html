@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Message by fivesmallq</title>
+    <meta name="description" content="Message : rpc message agent">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Message</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Message</h1>
-          <h2>rpc message agent</h2>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/fivesmallq/message">View on GitHub</a>
+
+          <h1 id="project_title">Message</h1>
+          <h2 id="project_tagline">rpc message agent</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/fivesmallq/message/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/fivesmallq/message/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
+    </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/fivesmallq/message/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/fivesmallq/message/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/fivesmallq/message" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a id="message-" class="anchor" href="#message-" aria-hidden="true"><span class="octicon octicon-link"></span></a>message <a href="https://travis-ci.org/fivesmallq/message"><img src="https://travis-ci.org/fivesmallq/message.png" alt="Build Status"></a>
+</h3>
 
-        <hr>
-
-        <section id="main_content">
-          <h1>
-<a name="message-" class="anchor" href="#message-"><span class="octicon octicon-link"></span></a>message <a href="https://travis-ci.org/fivesmallq/message"><img src="https://travis-ci.org/fivesmallq/message.png" alt="Build Status"></a>
-</h1>
+<h1>
+<a id="message" class="anchor" href="#message" aria-hidden="true"><span class="octicon octicon-link"></span></a>message</h1>
 
 <p>simple rpc to send message. impl by rmi.</p>
 
@@ -41,56 +44,56 @@
 
 <p>1.Server</p>
 
-<pre><code>MessageServer messageServer = new MessageServer("localhost", 1099,
-                "message");
-    MessageUtils.startServer(messageServer, new MessageHandler() {
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">MessageServer</span> messageServer <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">MessageServer</span>(<span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>, <span class="pl-c1">1099</span>,
+                <span class="pl-s"><span class="pl-pds">"</span>message<span class="pl-pds">"</span></span>);
+    <span class="pl-smi">MessageUtils</span><span class="pl-k">.</span>startServer(messageServer, <span class="pl-k">new</span> <span class="pl-smi">MessageHandler</span>() {
 
-        @Override
-        public String to(String message) {
-            System.out.println("message:" + message);
-            return "get datas:" + message;
+        <span class="pl-k">@Override</span>
+        <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">to</span>(<span class="pl-smi">String</span> <span class="pl-v">message</span>) {
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>message:<span class="pl-pds">"</span></span> <span class="pl-k">+</span> message);
+            <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>get datas:<span class="pl-pds">"</span></span> <span class="pl-k">+</span> message;
         }
-    });
-</code></pre>
+    });</pre></div>
 
 <p>OR.</p>
 
-<pre><code>new MessageServer(propsFileName);
-new MessageServer(propsFile);
-new MessageServer(ip,host,serveName);
-
-</code></pre>
+<div class="highlight highlight-source-java"><pre><span class="pl-k">new</span> <span class="pl-smi">MessageServer</span>(propsFileName);
+<span class="pl-k">new</span> <span class="pl-smi">MessageServer</span>(propsFile);
+<span class="pl-k">new</span> <span class="pl-smi">MessageServer</span>(ip,host,serveName);
+</pre></div>
 
 <p>2.Client</p>
 
-<pre><code>try {
-    MessageService messageService = MessageUtils
-                    .lookUp("localhost:1099/message");
-    Message message = new Message("delete", "1");
-    String str = messageService.to(message.toString());
-    Map&lt;String, String&gt; update_data = new Hashtable&lt;String, String&gt;();
-    update_data.put("id", "1");
-    update_data.put("id", "2");
-    update_data.put("id", "3");
-    message = new Message("updateAll", update_data.toString());
-    str = messageService.to(message.toString());
-    logger.info("returned " + str);
-} catch (Exception e) {
-    e.printStackTrace();
+<div class="highlight highlight-source-java"><pre><span class="pl-k">try</span> {
+    <span class="pl-smi">MessageService</span> messageService <span class="pl-k">=</span> <span class="pl-smi">MessageUtils</span>
+                    .lookUp(<span class="pl-s"><span class="pl-pds">"</span>localhost:1099/message<span class="pl-pds">"</span></span>);
+    <span class="pl-smi">Message</span> message <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Message</span>(<span class="pl-s"><span class="pl-pds">"</span>delete<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>);
+    <span class="pl-smi">String</span> str <span class="pl-k">=</span> messageService<span class="pl-k">.</span>to(message<span class="pl-k">.</span>toString());
+    <span class="pl-k">Map&lt;<span class="pl-smi">String</span>, <span class="pl-smi">String</span>&gt;</span> update_data <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">Hashtable&lt;<span class="pl-smi">String</span>, <span class="pl-smi">String</span>&gt;</span>();
+    update_data<span class="pl-k">.</span>put(<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>);
+    update_data<span class="pl-k">.</span>put(<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>);
+    update_data<span class="pl-k">.</span>put(<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>);
+    message <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Message</span>(<span class="pl-s"><span class="pl-pds">"</span>updateAll<span class="pl-pds">"</span></span>, update_data<span class="pl-k">.</span>toString());
+    str <span class="pl-k">=</span> messageService<span class="pl-k">.</span>to(message<span class="pl-k">.</span>toString());
+    logger<span class="pl-k">.</span>info(<span class="pl-s"><span class="pl-pds">"</span>returned <span class="pl-pds">"</span></span> <span class="pl-k">+</span> str);
+} <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> e) {
+    e<span class="pl-k">.</span>printStackTrace();
 }
-}
-</code></pre>
+}</pre></div>
 
 <p>binaries:<a href="https://github.com/fivesmallq/message/releases/download/0.0.1/message-0.0.1-SNAPSHOT.jar">https://github.com/fivesmallq/message/releases/download/0.0.1/message-0.0.1-SNAPSHOT.jar</a></p>
-        </section>
-
-        <footer>
-          Message is maintained by <a href="https://github.com/fivesmallq">fivesmallq</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
+      </section>
     </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Message maintained by <a href="https://github.com/fivesmallq">fivesmallq</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
   </body>
 </html>
